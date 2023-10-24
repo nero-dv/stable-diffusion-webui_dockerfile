@@ -7,8 +7,7 @@ if [ "$#" -ne 1 ]; then
 fi
 
 URL=${1}
-# DESTINATION=/dockerx/stable-diffusion-webui/models/Stable-diffusion
-DESTINATION=./models
+DESTINATION=/dockerx/stable-diffusion-webui/models/Stable-diffusion
 
 LASTDIR=$(pwd)
 
