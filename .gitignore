@@ -1,1 +1,10 @@
 v1-5-pruned-emaonly.safetensors
+.shellcheckrc
+.env
+models/
+.pnp*
+package.json
+yarn.lock
+.yarn/
+node_modules/
+package-lock.json

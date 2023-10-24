@@ -2,9 +2,10 @@
 
 export APP=/dockerx/stable-diffusion-webui
 
-cd $APP
+cd $APP || return
 
 # activate venv
+# shellcheck source=/dev/null
 source $APP/venv/bin/activate
 
 # run launch.py
