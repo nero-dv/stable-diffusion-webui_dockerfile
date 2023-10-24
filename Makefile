@@ -7,3 +7,6 @@ all:
 
 dev: 
 	docker build . -t sdwebui:dev || docker logs $(docker ps -l -q)
+
+lint:
+	docker run --rm -i hadolint/hadolint < Dockerfile
