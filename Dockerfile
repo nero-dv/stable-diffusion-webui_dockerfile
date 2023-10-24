@@ -13,18 +13,17 @@ RUN apt-get install -y git
 # Clone repository into specified directory
 RUN git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui /dockerx/stable-diffusion-webui
 
-# Create a virtual environment and upgrade pip and wheel in the venv
+# Navigate to the stable-diffusion-webui directory and checkout the tested commit
+RUN cd /dockerx/stable-diffusion-webui && \
+    git checkout 5ef669de080814067961f28357256e8fe27544f4
+
+# Create a virtual environment, upgrade pip and wheel in the venv, then install rocm enabled pytorch
 RUN python3.10 -m venv /dockerx/stable-diffusion-webui/venv && \
-    /bin/bash -c "source /dockerx/stable-diffusion-webui/venv/bin/activate && pip install --upgrade pip wheel"
+    /bin/bash -c "source /dockerx/stable-diffusion-webui/venv/bin/activate && pip install --upgrade pip wheel \
+    pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/rocm5.6"
 
-# Install rocm enabled pytorch
-RUN /bin/bash -c "source /dockerx/stable-diffusion-webui/venv/bin/activate && pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/rocm5.6"
-
-# Download "https://huggingface.co/runwayml/stable-diffusion-v1-5/resolve/main/v1-5-pruned-emaonly.safetensors" to /dockerx/stable-diffusion-webui/models/Stable-diffusion/v1-5-pruned-emaonly.safetensors
+# Download sd v1,5 directly, allowing docker build caching to be used for future builds if needed
 RUN wget -O /dockerx/stable-diffusion-webui/models/Stable-diffusion/v1-5-pruned-emaonly.safetensors https://huggingface.co/runwayml/stable-diffusion-v1-5/resolve/main/v1-5-pruned-emaonly.safetensors
-
-# # Copy the v1-5-pruned-emaonly.safetensors file into the appropriate stable-diffusion-webui models directory
-# COPY v1-5-pruned-emaonly.safetensors /dockerx/stable-diffusion-webui/models/Stable-diffusion/v1-5-pruned-emaonly.safetensors
 
 # Copy the run.sh file into the dockerx directory
 COPY run.sh /dockerx/run.sh
