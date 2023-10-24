@@ -13,5 +13,5 @@ sudo docker run \
     --cap-add=SYS_PTRACE \
     --security-opt seccomp=unconfined \
     --volume /mnt/rocm_pytorch/dockerx/output:/dockerx/output \
-    sdwebui:rev4 \
+    sdwebui:release \
     /bin/bash -c "/dockerx/run.sh"
