@@ -1,9 +1,11 @@
 #!/usr/bin/env bash
 
-cd /dockerx/stable-diffusion-webui
+export APP=/dockerx/stable-diffusion-webui
+
+cd $APP
 
 # activate venv
-source /dockerx/stable-diffusion-webui/venv/bin/activate
+source $APP/venv/bin/activate
 
 # run launch.py
-python /dockerx/stable-diffusion-webui/launch.py --listen
+python $APP/launch.py --listen
